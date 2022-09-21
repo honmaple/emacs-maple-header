@@ -1,0 +1,45 @@
+* emacs-maple-header
+  Auto insert or update file header.
+
+** How to use?
+   #+begin_src elisp
+     (use-package maple-header
+       :quelpa (:fetcher github :repo "honmaple/emacs-maple-header")
+       :hook (after-init . maple-header-mode))
+   #+end_src
+
+   Or alternatively, you can download the repository and install manually by doing:
+   #+BEGIN_SRC bash
+     git clone https://github.com/honmaple/emacs-maple-header ~/.emacs.d/site-lisp/maple-header
+   #+END_SRC
+
+   #+begin_src elisp
+     (use-package maple-header
+       :ensure nil
+       :hook (after-init . maple-header-mode))
+   #+end_src
+
+** Customize
+   #+begin_src elisp
+     ;; Auto update search lines
+     (setq maple-header:lines 9)
+     ;; Whether auto insert after create a new file
+     (setq maple-header:auto-insert t)
+     ;; Whether auto update before save
+     (setq maple-header:auto-update t)
+     ;; Auto insert template
+     (setq maple-header:auto-insert-alist
+           '(((python-mode . "Python program") nil
+              "#!/usr/bin/env python\n"
+              "# -*- coding: utf-8 -*-\n")))
+     ;; Auto update list
+     (setq maple-header:auto-update-alist
+           '((filename . maple-header:update-filename)
+             (author . custom-update-modify)))
+
+     (defun custom-update-author(&optional current-line)
+       (interactive)
+       (maple-header:update-action
+        ".*\\(Author:\\)\\(.*\\)"
+        user-full-name current-line))
+   #+end_src
