@@ -35,7 +35,7 @@
      ;; Auto update list
      (setq maple-header:auto-update-alist
            '((filename . maple-header:update-filename)
-             (author . custom-update-modify)))
+             (author . custom-update-author)))
 
      (defun custom-update-author(&optional current-line)
        (interactive)
